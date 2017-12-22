@@ -1,0 +1,31 @@
+---
+- hosts: all
+  roles:
+    - geerlingguy.java
+          
+  tasks:
+     - name: upgrade all packages
+       yum:
+         name: '*'
+         state: latest
+     - name: Installing Apache package
+       yum:
+         name : httpd
+         state : latest
+     - name: starting apache webserver
+       service: name=httpd state=started
+     - name: Open port 80
+       firewalld: service=http permanent=true state=enabled
+     - name: start the firewalld service
+       service: name=firewalld state=restarted
+     - name: Installing Tomcat
+       yum:
+         name : tomcat
+         state : latest
+     - name: starting Tomcat
+       service: name=tomcat state=started
+     - name: Open port 8080
+       firewalld: service=tomcat permanent=true state=enabled
+     - name: start the firewalld service
+       service: name=firewalld state=restarted
+
