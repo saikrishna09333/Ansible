@@ -25,7 +25,7 @@
      - name: starting Tomcat
        service: name=tomcat state=started
      - name: Open port 8080
-       firewalld: service=tomcat permanent=true state=enabled
+       firewalld: zone=public port=8080/tcp permanent=true state=enabled
      - name: start the firewalld service
        service: name=firewalld state=restarted
 
