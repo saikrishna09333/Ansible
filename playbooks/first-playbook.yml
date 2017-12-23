@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: default
   roles:
     - geerlingguy.java
           
@@ -28,4 +28,8 @@
        firewalld: zone=public port=8080/tcp permanent=true state=enabled
      - name: start the firewalld service
        service: name=firewalld state=restarted
+- hosts: dbservers
+  roles:
+    - role: geerlingguy.mysql
+      become: yes
 
